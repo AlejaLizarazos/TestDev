@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from .notifiers import Notifier
 from .repositories import JourneyRepository
-
+from datetime import date
 
 class StartJourney:
     def __init__(self, repository: JourneyRepository, notifier: Notifier):
@@ -25,3 +25,11 @@ class StartJourney:
 
     class CantStart(Exception):
         pass
+
+class StopJourney:
+    def __init__(self, repository: JourneyRepository,):
+        self.repository = repository
+
+    def set_params(self, data: dict) -> StopJourney:
+        self.data = data
+        return self

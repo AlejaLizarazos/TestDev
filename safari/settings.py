@@ -79,10 +79,10 @@ WSGI_APPLICATION = "safari.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": "postgres",
+        "NAME": "dev",
         "USER": "postgres",
-        "PASSWORD": "postgres",
-        "HOST": "db",
+        "PASSWORD": "admin",
+        "HOST": "localhost",
         "PORT": 5432,
     }
 }

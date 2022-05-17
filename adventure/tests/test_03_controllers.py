@@ -4,6 +4,7 @@ from django.core import mail
 from adventure import models, notifiers, repositories, usecases, views
 
 from .test_02_usecases import MockJourneyRepository
+from datetime import date 
 
 #########
 # Tests #
@@ -69,11 +70,16 @@ class TestStartJourneyAPIView:
         response = client.post("/api/adventure/start/", payload)
 
         assert response.status_code == 400
-
-
-@pytest.mark.skip  # Remove
+        
 class TestStopJourneyAPIView:
-    def test_stop(self):
-        # TODO: Implement an endpoint that makes use of a StopJourney use case
-        # and tests it
-        pass
+    def test_stop(self, client, mocker):
+
+        mocker.patch.object(
+            views.StopJourneyAPIView,
+            "get_repository",
+            return_value=MockJourneyRepository(),
+        )
+        payload = {"end": date.today()}
+        response = client.patch("/api/adventure/stop/", payload)
+
+        assert response.status_code == 200

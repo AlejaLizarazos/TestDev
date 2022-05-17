@@ -43,3 +43,16 @@ class StartJourneyAPIView(generics.CreateAPIView):
 
     def get_repository(self) -> repositories.JourneyRepository:
         return repositories.JourneyRepository()
+
+class StopJourneyAPIView(generics.UpdateAPIView):
+    serializer_class = serializers.StopJourneySerializer
+    queryset = models.Journey.objects.all()
+
+    def perform_update(self, serializer) -> None:
+        repo = self.get_repository()
+        usecases.StopJourney(repo).set_params(
+            serializer.validated_data
+        )
+
+    def get_repository(self) -> repositories.JourneyRepository:
+        return repositories.JourneyRepository()
